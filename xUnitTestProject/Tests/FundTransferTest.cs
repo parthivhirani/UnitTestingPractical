@@ -1,10 +1,3 @@
-using Moq;
-using Microsoft.AspNetCore.Mvc;
-using UnitTestingPractical.Controllers;
-using UnitTestingPractical.Models;
-using UnitTestingPractical.Repository;
-using System.Net;
-
 namespace xUnitTestProject.Tests;
 
 public class FundTransferTest
@@ -22,7 +15,7 @@ public class FundTransferTest
     public void Return_Updated_Amount_When_fundTransferedSuccessfully(int senderId, int recipientId, double amount)
     {
         // ARRANGE
-        var expectedBalance = 48000.00;
+        double expectedBalance = 38000;
         _mock.Setup(service => service.FundTransfer(senderId, recipientId, amount))
                            .Returns(expectedBalance);
 
@@ -37,14 +30,14 @@ public class FundTransferTest
     [Theory]
     [InlineData(-1, 2, 3000)]
     [InlineData(1, -2, 2000)]
-    [InlineData(1, 2, 6000)]
+    [InlineData(1, 2, 60000)]
     [InlineData(1, 1, 2500)]
     public void Return_BadRequest_When_invalidDataPassed(int senderId, int recipientId, double amount)
     {
         // ARRANGE
         var expectedStatusCode = HttpStatusCode.BadRequest;
         _mock.Setup(service => service.FundTransfer(senderId, recipientId, amount))
-                           .Returns(null);
+                           .Returns(-1);
 
         // ACT
         var result = _accountController.TransferAmount(senderId, recipientId, amount) as BadRequestResult;
@@ -63,8 +56,8 @@ public class FundTransferTest
     {
         // ARRANGE
         var expectedStatusCode = HttpStatusCode.NotFound;
-        _mock.Setup(service => service.FundTransfer(senderId, recipientId,amount))
-                           .Returns(null);
+        _mock.Setup(service => service.FundTransfer(senderId, recipientId, amount))
+                           .Returns(0);
 
         // ACT
         var result = _accountController.TransferAmount(senderId, recipientId, amount) as NotFoundResult;
