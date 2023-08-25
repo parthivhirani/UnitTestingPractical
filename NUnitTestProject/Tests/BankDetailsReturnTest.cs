@@ -1,6 +1,3 @@
-using Moq;
-using UnitTestingPractical.Repository;
-
 namespace NUnitTestProject.Tests;
 
 [TestFixture]
@@ -16,15 +13,13 @@ public class BankDetailsReturnTest
 
     [Test]
     [TestCase(1)]
+    [TestCase(3)]
     public void Should_Return_ValidCustomer_When_inputIsValid(int id)
     {
         // ARRANGE
         var expectedObject = new BankDetails()
         {
-            Id = 1,
-            FirstName = "Parthiv",
-            LastName = "Hirani",
-            Amount = 50000
+            Id = id
         };
         _mock.Setup(c => c.GetCustomer(id)).Returns(expectedObject);
 

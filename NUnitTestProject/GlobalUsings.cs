@@ -4,3 +4,5 @@ global using System.Net;
 global using UnitTestingPractical.Controllers;
 global using UnitTestingPractical.Models;
 global using Newtonsoft.Json;
+global using Moq;
+global using UnitTestingPractical.Repository;

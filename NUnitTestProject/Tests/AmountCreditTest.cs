@@ -1,7 +1,4 @@
-﻿using Moq;
-using UnitTestingPractical.Repository;
-
-namespace NUnitTestProject.Tests;
+﻿namespace NUnitTestProject.Tests;
 
 [TestFixture]
 public class AmountCreditTest
@@ -18,8 +15,8 @@ public class AmountCreditTest
     public void testAmountCreditSuccess(int id, double amount)
     {
         // ARRANGE
-        var expectedAmount = 51000.00;
-        _mock.Setup(c => c.CreditAmount(id, amount)).Returns(51000.00);
+        double expectedAmount = 51000;
+        _mock.Setup(c => c.CreditAmount(id, amount)).Returns(expectedAmount);
 
         // ACT
         var actual = _accountController.Credit(id, amount) as OkObjectResult;
@@ -35,9 +32,9 @@ public class AmountCreditTest
     public void Should_Return_NotFound_When_accountNotFoundwithValidInput(int id, double amount)
     {
         // ARRANGE
-        var expectedAmount = 0.00;
+        double expectedOutput = 0;
         var expectedStatusCode = HttpStatusCode.BadRequest;
-        _mock.Setup(c => c.CreditAmount(id, amount)).Returns(0.00);
+        _mock.Setup(c => c.CreditAmount(id, amount)).Returns(expectedOutput);
 
         // ACT
         var actual = _accountController.Credit(id, amount) as BadRequestResult;
@@ -55,9 +52,9 @@ public class AmountCreditTest
     public void Should_Return_BadRequest_When_inputsAreNotvalid(int id, double amount)
     {
         // ARRANGE
-        var expectedAmount = 0.00;
+        double expectedOutput = 0;
         var expectedStatusCode = HttpStatusCode.BadRequest;
-        _mock.Setup(c => c.CreditAmount(id, amount)).Returns(0.00);
+        _mock.Setup(c => c.CreditAmount(id, amount)).Returns(expectedOutput);
 
         // ACT
         var actual = _accountController.Credit(id, amount) as BadRequestResult;
