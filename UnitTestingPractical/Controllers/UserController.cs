@@ -16,6 +16,13 @@ namespace UnitTestingPractical.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetAll()
+        {
+            var customers = _customerRepository.GetAllCustomers();
+            return Ok(customers);
+        }
+
+        [HttpGet]
         public IActionResult GetCustomer(int id)
         {
             if (id > 0)

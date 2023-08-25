@@ -31,5 +31,10 @@ namespace UnitTestingPractical.Repository
             var customer = _bankDetails.GetBankDetails().Where(c => c.Id == id).SingleOrDefault();
             return customer;
         }
+
+        public List<BankDetails> GetAllCustomers()
+        {
+            return _bankDetails.GetBankDetails().ToList();
+        }
     }
 }

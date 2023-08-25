@@ -6,5 +6,6 @@ namespace UnitTestingPractical.Repository
     {
         BankDetails AddNewCustomer(BankDetails bankDetails);
         BankDetails GetCustomer(int id);
+        List<BankDetails> GetAllCustomers();
     }
 }

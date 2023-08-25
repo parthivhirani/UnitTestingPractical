@@ -11,6 +11,11 @@ namespace UnitTestingPractical.Repository
             _bankDetails = bankDetails;
         }
 
+        public double GetBalance(int id)
+        {
+            return _bankDetails.GetBankDetails().Where(c => c.Id == id).Select(c => c.Amount).SingleOrDefault();
+        }
+
         public double WithdrawAmount(int id, double amount)
         {
             var customer = _bankDetails.GetBankDetails().Where(c => c.Id == id).SingleOrDefault();
@@ -40,7 +45,7 @@ namespace UnitTestingPractical.Repository
             var senderObj = _bankDetails.GetBankDetails().Where(c => c.Id == senderId).SingleOrDefault();
             if (senderObj != null)
             {
-                if(senderObj.Amount > amount)
+                if(amount < senderObj.Amount)
                 {
                     var recipientObj = _bankDetails.GetBankDetails().Where(c => c.Id == recipientId).SingleOrDefault();
                     if (recipientObj != null)
